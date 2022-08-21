@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html' %}
+
+{% block title%}
+{{title}}
+
+{% block link_css %}
+    {% load static %}
+   
+{% endblock %}
+
+{%endblock%}
+{% block content %}
+<div class="container mt-4">
+    <h1>{{body_title}}</h1>
+    <form method="POST" action = "{% url 'quiz.add' %}">
+        {% csrf_token %}
+        <button type="submit">Add question</button>
+    </form>
+    <div class="row">
+       {% for question in questions %}
+            <h2>{{question.question_title}}</h2>
+            <div>
+                <button>{{question.option_A}}</button>
+                <button>{{question.option_B}}</button>
+                <button>{{question.option_C}}</button>
+                <button>{{question.option_D}}</button>
+            </div>
+            <a href="{% url 'question.edit' question.id%}">Edit</a>
+            <a href="{% url 'question.delete' question.id%}">Delete</a>
+       {% endfor %}
+    </div>
+</div>
+{% endblock%}
+
+
+
